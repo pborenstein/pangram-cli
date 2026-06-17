@@ -21,12 +21,16 @@ def main(text: str) -> None:
         text = sys.stdin.read()
 
     if not text.strip():
-        click.echo("Error: no text provided", err=True)
-        sys.exit(1)
+        click.echo(main.get_help(click.Context(main)))
+        sys.exit(0)
 
-    client = Pangram()
-    result = client.predict(text)
-    click.echo(result)
+    try:
+        client = Pangram()
+        result = client.predict(text)
+    except ValueError:
+        click.echo("Error: PANGRAM_API_KEY is not set. Add it to .env or set it in your environment.")
+        sys.exit(1)
+    click.echo(result["prediction_short"])
 
 
 if __name__ == "__main__":
