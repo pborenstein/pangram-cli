@@ -6,7 +6,7 @@ CLI tool for detecting AI-generated text using the Pangram Labs API.
 
 | Phase | Name | Status |
 |-------|------|--------|
-| 0 | MVP | In Progress |
+| 0 | MVP | Complete |
 
 ## Phase 0: MVP
 
@@ -16,14 +16,17 @@ CLI tool for detecting AI-generated text using the Pangram Labs API.
 
 - [x] Project scaffolding (pyproject.toml, package structure, .gitignore)
 - [x] `cli.py` with click, stdin support, dotenv loading
-- [ ] `uv sync` — install deps and verify
-- [ ] End-to-end test with real API key
-- [ ] Decide on output format
-- [ ] Initial commit
+- [x] `uv sync` — install deps and verify
+- [x] End-to-end test with real API key
+- [x] Fix response parsing: SDK returns dict, use `result["prediction_short"]`
+- [x] Clean error for missing API key (no traceback)
+- [x] Empty input shows help text
+- [x] TDD test suite: 3 tests passing
+- [x] Initial commits
 
 ### Notes
 
-- SDK: `pangram-sdk`, installed via pip/uv
+- SDK: `pangram-sdk==0.3.1`
 - Auth: `PANGRAM_API_KEY` env var, loaded from `.env` via python-dotenv
-- The `Pangram()` constructor reads `PANGRAM_API_KEY` automatically if not passed
-- MVP intentionally has no bells and whistles — one command, one result
+- Response is a dict with `prediction_short` (Human/AI/AI-Assisted) and `windows[]` for segments
+- Full segment data available for future verbose/JSON output mode

@@ -2,30 +2,34 @@
 phase: 0
 phase_name: MVP
 updated: 2026-06-17
-last_commit: (initial)
+last_commit: 5df9b30
 ---
 
 ## Current Focus
 
-Building the MVP CLI: `pangram "text or stdin"` using the Pangram Labs Python SDK.
+MVP is complete and working. `pangram "text"` and `cat file | pangram` both work end-to-end.
 
 ## Active Tasks
 
-- [ ] Install deps and verify SDK works (`uv sync`)
-- [ ] Test `pangram "some text"` end-to-end with a real API key
-- [ ] Decide on output format (raw result vs. structured)
+- [x] Install deps and verify SDK works
+- [x] Test end-to-end with real API key
+- [x] Fix response parsing (dict, not object)
+- [x] Clean error for missing API key
+- [x] Empty input shows help
+- [x] TDD test suite (3 tests passing)
 
 ## Blockers
 
-Need a Pangram API key in `.env` before end-to-end testing.
+None.
 
 ## Context
 
-- Entry point: `pangram_cli/cli.py`, registered as `pangram` in pyproject.toml
-- `.env` is gitignored; set `PANGRAM_API_KEY=...` there
-- `python-dotenv` loads `.env` automatically at startup
-- `click.argument("text", default="-")` means bare `pangram` reads stdin
+- SDK returns a dict; use `result["prediction_short"]` for the label (Human/AI/AI-Assisted)
+- Full response has segment-level data in `windows[]` — useful for future verbose mode
+- `.env` with `PANGRAM_API_KEY` is gitignored; required for real runs
+- Tests mock `Pangram` entirely — no API key needed for `uv run pytest`
+- Command is `pangram`, not `pangram-cli`
 
 ## Next Session
 
-Run `uv sync`, create `.env` with your API key, then `uv run pangram "some text"` to verify end-to-end.
+MVP is done. Next: decide what to add — verbose/segment output, `--json` flag, confidence score, or batch mode.
