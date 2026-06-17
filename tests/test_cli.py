@@ -25,6 +25,21 @@ def test_missing_api_key_shows_clean_error() -> None:
     assert "PangramText" not in result.output
 
 
+def test_json_output() -> None:
+    """--json flag prints the full response as JSON."""
+    runner = CliRunner()
+    mock_response = {"prediction_short": "Human", "fraction_human": 1.0, "windows": []}
+
+    with patch("pangram_cli.cli.Pangram") as mock_pangram:
+        mock_pangram.return_value.predict.return_value = mock_response
+        result = runner.invoke(main, ["--json", "This is some text."])
+
+    assert result.exit_code == 0
+    import json
+    parsed = json.loads(result.output)
+    assert parsed["prediction_short"] == "Human"
+
+
 def test_classify_text() -> None:
     """CLI calls predict() with the given text and prints the result."""
     runner = CliRunner()
