@@ -2,21 +2,17 @@
 phase: 0
 phase_name: MVP
 updated: 2026-06-17
-last_commit: 5df9b30
+last_commit: bf34e07
 ---
 
 ## Current Focus
 
-MVP is complete and working. `pangram "text"` and `cat file | pangram` both work end-to-end.
+MVP + --json shipped. Ready to cut v0.1.0 release, then move to Phase 1 (multi-file/bulk).
 
 ## Active Tasks
 
-- [x] Install deps and verify SDK works
-- [x] Test end-to-end with real API key
-- [x] Fix response parsing (dict, not object)
-- [x] Clean error for missing API key
-- [x] Empty input shows help
-- [x] TDD test suite (3 tests passing)
+- [x] --json flag: full response output
+- [ ] Cut v0.1.0 release
 
 ## Blockers
 
@@ -24,12 +20,11 @@ None.
 
 ## Context
 
-- SDK returns a dict; use `result["prediction_short"]` for the label (Human/AI/AI-Assisted)
-- Full response has segment-level data in `windows[]` — useful for future verbose mode
-- `.env` with `PANGRAM_API_KEY` is gitignored; required for real runs
-- Tests mock `Pangram` entirely — no API key needed for `uv run pytest`
-- Command is `pangram`, not `pangram-cli`
+- `--json` outputs the full dict: prediction_short, fraction_ai/human/ai_assisted, windows[]
+- The frontmatter in vault notes is being sent to the API — worth stripping before classify in future
+- `batch_predict()` deprecated Aug 2026 — use `submit_bulk()` for multi-file
+- Use filename as `id` in bulk items so results map back cleanly
 
 ## Next Session
 
-MVP is done. Next: decide what to add — verbose/segment output, `--json` flag, confidence score, or batch mode.
+Phase 1: `pangram file1.md file2.md` via bulk API. See IMPLEMENTATION.md for open questions.

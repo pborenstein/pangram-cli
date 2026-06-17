@@ -38,3 +38,19 @@
 **Decisions**: None new — DEC-001 and DEC-002 held.
 
 **Files**: `pangram_cli/cli.py`, `tests/test_cli.py` — commit `5df9b30`
+
+---
+
+## Entry 3: --json flag (2026-06-17)
+
+**What**: Added `--json` flag outputting the full Pangram API response as indented JSON.
+
+**Why**: Full response unlocks fraction scores, per-segment windows, confidence levels — pipeable to jq or any downstream tool.
+
+**How**:
+
+- TDD: failing test first, then `--option "output_json"` click flag, then `json.dumps(result, indent=2)`
+- Discovered the API includes vault frontmatter in the text — worth stripping in future
+- Confirmed live: WTD proposal scores 1.0 fraction_ai, 3 High-confidence AI segments
+
+**Files**: `pangram_cli/cli.py`, `tests/test_cli.py` — commit `bf34e07`
