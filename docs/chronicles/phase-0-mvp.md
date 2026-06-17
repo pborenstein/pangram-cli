@@ -54,3 +54,22 @@
 - Confirmed live: WTD proposal scores 1.0 fraction_ai, 3 High-confidence AI segments
 
 **Files**: `pangram_cli/cli.py`, `tests/test_cli.py` — commit `bf34e07`
+
+---
+
+## Entry 4: x-pb-data pocket, license, v0.1.0 release (2026-06-17)
+
+**What**: Added `x-pb-data` extension field to `--json` output with `words_total` and `credit_cost`; cut v0.1.0 release to GitHub; added MIT license and README pangram.com links.
+
+**Why**: Cost visibility in JSON output without polluting the API response shape. `x-` prefix signals client-added field. Ceiling division: 1017 words = 2 credits.
+
+**How**:
+
+- TDD: test asserted `x-pb-data.words_total` and `x-pb-data.credit_cost` before implementation
+- `math.ceil(words_total / 1000)` for credit count
+- `gh repo create` + `gh release create` for v0.1.0
+- Noted: frontmatter in vault notes inflates word count — future improvement to strip it
+
+**Decisions**: DEC-003 (x-pb-data namespace)
+
+**Files**: `pangram_cli/cli.py`, `tests/test_cli.py`, `LICENSE`, `README.md`, `CHANGELOG.md`

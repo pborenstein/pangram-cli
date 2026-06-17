@@ -2,17 +2,21 @@
 phase: 0
 phase_name: MVP
 updated: 2026-06-17
-last_commit: bf34e07
+last_commit: 2c3b821
 ---
 
 ## Current Focus
 
-MVP + --json shipped. Ready to cut v0.1.0 release, then move to Phase 1 (multi-file/bulk).
+MVP complete with --json and x-pb-data cost tracking. v0.1.0 released to GitHub. Cutting v0.2.0 next.
 
 ## Active Tasks
 
-- [x] --json flag: full response output
-- [ ] Cut v0.1.0 release
+- [x] --json flag
+- [x] x-pb-data with words_total and credit_cost
+- [x] MIT license
+- [x] README links to pangram.com
+- [x] v0.1.0 released
+- [ ] Cut v0.2.0 release
 
 ## Blockers
 
@@ -20,11 +24,12 @@ None.
 
 ## Context
 
-- `--json` outputs the full dict: prediction_short, fraction_ai/human/ai_assisted, windows[]
-- The frontmatter in vault notes is being sent to the API — worth stripping before classify in future
-- `batch_predict()` deprecated Aug 2026 — use `submit_bulk()` for multi-file
-- Use filename as `id` in bulk items so results map back cleanly
+- `x-pb-data` is our extension pocket — `words_total` and `credit_cost` (ceiling div by 1000) live there
+- Frontmatter in vault notes inflates word count — stripping it before classify is a future improvement
+- 1017 words = 2 credits (17 words over the 1000 boundary — painful but correct)
+- `batch_predict()` deprecated Aug 2026 — Phase 1 uses `submit_bulk()` with filename as item `id`
+- GitHub repo: https://github.com/pborenstein/pangram-cli
 
 ## Next Session
 
-Phase 1: `pangram file1.md file2.md` via bulk API. See IMPLEMENTATION.md for open questions.
+Cut v0.2.0, then Phase 1: multi-file bulk support. See IMPLEMENTATION.md for open questions.

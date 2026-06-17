@@ -24,13 +24,19 @@ CLI tool for detecting AI-generated text using the Pangram Labs API.
 - [x] Empty input shows help text
 - [x] TDD test suite: 3 tests passing
 - [x] Initial commits
+- [x] `--json` flag: full API response as indented JSON
+- [x] `x-pb-data` pocket: `words_total`, `credit_cost` (ceil / 1000)
+- [x] MIT license + README with pangram.com links
+- [x] v0.1.0 released to GitHub
+- [ ] v0.2.0 release
+- [ ] Strip frontmatter before classify (inflates word count unnecessarily)
 
 ### Notes
 
 - SDK: `pangram-sdk==0.3.1`
 - Auth: `PANGRAM_API_KEY` env var, loaded from `.env` via python-dotenv
 - Response is a dict with `prediction_short` (Human/AI/AI-Assisted/Mixed) and `windows[]` for segments
-- Full segment data available for future verbose/JSON output mode
+- `x-pb-data` is our extension namespace — safe to add fields there without conflicting with API
 
 ---
 

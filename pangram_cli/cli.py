@@ -1,6 +1,7 @@
 """Command-line interface for pangram-cli."""
 
 import json
+import math
 import sys
 import click
 from dotenv import load_dotenv
@@ -34,6 +35,11 @@ def main(text: str, output_json: bool) -> None:
         sys.exit(1)
 
     if output_json:
+        words_total = sum(w.get("word_count", 0) for w in result.get("windows", []))
+        result["x-pb-data"] = {
+            "words_total": words_total,
+            "credit_cost": math.ceil(words_total / 1000),
+        }
         click.echo(json.dumps(result, indent=2))
     else:
         click.echo(result["prediction_short"])
