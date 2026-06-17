@@ -1,6 +1,6 @@
 [project]
 name = "pangram-cli"
-version = "0.1.0"
+version = "0.2.0"
 description = "CLI tool for detecting AI-generated text using the Pangram Labs API"
 readme = "README.md"
 requires-python = ">=3.11"
